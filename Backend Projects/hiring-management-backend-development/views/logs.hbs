@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet", href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script type="text/javascript", src="//code.jquery.com/jquery-2.1.3.min.js" ></script>
+    <script type="text/javascript">
+    var toggleDetails = function (i) {
+                var currentElement = $('#details-' + i);
+                if (currentElement.hasClass('hide')) {
+                    $('.details').addClass('hide');
+                    $('#details-' + i).removeClass('hide');
+                } else {
+                    $('#details-' + i).addClass('hide');
+                }
+            };
+    </script>
+    <style media="screen">
+      .logsHeaderWrap{
+        display:flex;
+        background:#5943BE;
+        color:#d6d6d6;
+        align-items:center;
+        padding:0px 20px;
+      }
+      .logsHeaderLeftWrap{
+        display:flex;
+        flex:1;
+      }
+      .logsHeaderTitle{
+        display:flex;
+        align-items:center;
+        font-size:20px;
+        padding:0px 10px;
+        color:#fff;
+      }
+      .logsHeaderButtonWrap{
+        background:red;
+        border-radius:30px;
+        height:30px;
+        width: 160px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        cursor:pointer;
+      }
+      .logsHeaderText{
+        font-size:15px;
+        padding:10px;
+        background:transparent;
+        cursor:pointer;
+      }
+      .logsBodyWrap{
+        display: flex;
+        margin-top: 10px;
+      }
+      .logsBodyLeftMenuWrap{
+        width: 160px;
+        height:auto;
+        background: #F5F5F5;
+        display: flex;
+        justify-content: center;
+      }
+      .logsBodyLeftMenuTextWrap{
+        padding: 10px 0px;
+      }
+      .logsBodyLeftMenuText{
+        color: #5943BE;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+      .logsBodyRightContainer{
+        flex:1;
+        margin-left: 10px;
+      }
+      .logsBodyRightWrapper{
+        background: #F5F5F5;
+        padding: 10px;
+      }
+      .logsBodyRightBox1Wrap{
+        background: #ffcaca;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 20px;
+      }
+      .logsBodyRightBox2Wrap{
+        background: #F5F5F5;
+        padding: 5px;
+        border-radius: 10px;
+        min-height: 100px;
+      }
+      .actionButtonWrapper{
+        display: flex;
+        align-items: center;
+        margin-bottom:10px;
+      }
+      .actionBtn{
+        background: #f5f0ff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+        width: 70px;
+        border-radius: 50px;
+        color: #444444;
+        cursor: pointer;
+      }
+    </style>
+
+    <title>Logs</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class='logsHeaderWrap'>
+        <div class="logsHeaderLeftWrap">
+          <div class="logsHeaderTitle">LogViewer</div>
+          <div style='display:flex;'>
+            <div class="logsHeaderText" style="background:#eae5ff21; color:#fff;">All</div>
+            <div class="logsHeaderText">Emergency</div>
+            <div class="logsHeaderText">Alert</div>
+            <div class="logsHeaderText">Critical</div>
+            <div class="logsHeaderText">Error</div>
+            <div class="logsHeaderText">Warning</div>
+            <div class="logsHeaderText">Notice</div>
+            <div class="logsHeaderText">Info</div>
+            <div class="logsHeaderText">Debug</div>
+          </div>
+        </div>
+        <div class="logsHeaderButtonWrap">
+          <div style='color:#fff;'>Delete Current Log</div>
+        </div>
+      </div>
+      <div class="logsBodyWrap">
+        <div class="logsBodyLeftMenuWrap">
+            <div class="logsBodyLeftMenuTextWrap" id='dateField'></div>
+        </div>
+        <div class="logsBodyRightContainer">
+          <div class="actionButtonWrapper">
+            <div class="actionBtn" style='margin-right:10px'>Prev</div>
+            <div class="actionBtn">Next</div>
+          </div>
+          <div class="logsBodyRightWrapper">
+            <div class="logsBodyRightBox1Wrap">
+              <div style='color:#e00505; margin-bottom:5px;'>ERROR</div>
+              <div class="logsBodyRightBox2Wrap"></div>
+            </div>
+            <div class="logsBodyRightBox1Wrap" style="background:#ffe29d">
+              <div style='color:#d69700; margin-bottom:5px;'>WARNING</div>
+              <div class="logsBodyRightBox2Wrap"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <table class="table table-condensed">
+          <thead>
+              <tr>
+                  <th>Level</th>
+                  <th>Message</th>
+                  <th>Timestamp</th>
+                  <th></th>
+              </tr>
+          </thead>
+          <tbody>
+              {{logs}}
+               {{!-- {{#each message}}
+                  <tr>
+                      <td>{{context}}</td>
+                      <td>{{level}}</td>
+                      <td>{{message}}</td>
+                      <td><a href="details"></a></td>
+                  </tr>
+                {{/each}} --}}
+          </tbody>
+      </table>
+      <nav>
+          <ul>
+              {{#if prevPage}}
+              <li><a href="/api/logs/{{prevPage}}">prev</a></li>
+              {{/if}}
+              <li><a href="/api/logs/{{nextPage}}">next</a></li>
+          </ul>
+      </nav>
+    </div>
+
+    <script type="text/javascript">
+      var dates = [1,2,3,4,5,6,7,8,9,10];
+      var text;
+      text = "<div>";
+      for (var i = 0; i < dates.length; i++) {
+        if(i===1){
+          text += "<div class='logsBodyLeftMenuText' style='background:#5943BE; color:#fff'>" + '12-12-2020' + "</div>";
+        }else{
+          text += "<div class='logsBodyLeftMenuText'>" + '12-12-2020' + "</div>";
+        }
+      }
+      text += "</div>";
+
+      document.getElementById("dateField").innerHTML = text;
+    </script>
+  </body>
+</html>

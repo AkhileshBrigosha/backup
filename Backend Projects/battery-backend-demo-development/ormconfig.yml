@@ -1,0 +1,25 @@
+default1:
+    type: 'mongodb'
+    # connection: 'org_settings'
+    url: 'mongodb://localhost:27017/demo'
+    database: "demo"
+    entities: ["dist/**/*.entity{.ts,.js}"]
+    logging: ["query","error"]
+    logger: "file"
+    extra: { timezone: "+5:30" }
+    ssl: false
+    useUnifiedTopology: true
+    synchronize: true
+
+default:
+    type: 'mongodb'
+    # connection: 'org_settings'
+    url: 'mongodb+srv://root:root@cluster0.5fdik.gcp.mongodb.net/node?retryWrites=true&w=majority'
+    database: "node"
+    entities: ["dist/**/*.entity{.ts,.js}"]
+    logging: ["query","error"]
+    logger: "file"
+    extra: { timezone: "+5:30" }
+    #ssl: false
+    useUnifiedTopology: true
+    synchronize: true

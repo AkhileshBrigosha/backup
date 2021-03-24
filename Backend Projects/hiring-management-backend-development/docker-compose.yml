@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  mysql:
+    image: mysql:5.7
+    networks:
+      - webnet
+    volumes:
+      - ../databases:/docker-entrypoint-initdb.d
+      - ../databases/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=hiring_db
+    ports:
+      - 30096:3306
+    container_name: hiring-mysql-app
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.7
+    depends_on:
+      - mysql
+    networks:
+      - webnet
+    ports:
+      - "30097:80"
+    environment:
+      - PMA_HOST=hiring-mysql-app
+      - PMA_PORT= 3306
+    volumes:
+      - /databases
+    container_name: hiring-phpmyadmin-app
+networks:
+  webnet:
+volumes:
+  pgdata:

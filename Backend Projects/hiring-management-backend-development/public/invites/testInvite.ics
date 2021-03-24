@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//sebbo.net//ical-generator//EN
+NAME:My test calendar event
+X-WR-CALNAME:My test calendar event
+BEGIN:VEVENT
+UID:0000ohuov8@mytestwebsite.com
+SEQUENCE:0
+DTSTAMP:20201103T120041Z
+DTSTART:20201103T120041Z
+DTEND:20201105T000000Z
+SUMMARY:summary
+LOCATION:location
+DESCRIPTION:description
+ORGANIZER;CN="kallol":mailto:kallol.medhi@brigosha.com
+URL;VALUE=URI:url.com
+END:VEVENT
+END:VCALENDAR
